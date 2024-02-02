@@ -107,6 +107,7 @@ const yearsUntilRetirement = function (birthYear, firstName) {
 console.log(yearsUntilRetirement(1988, 'Oscar'));
 console.log(yearsUntilRetirement(1950, 'Steph'));
 */
+/*
 const calcAverage = (a, b, c) => (a + b + c) / 3;
 
 const scoreDolphins = calcAverage(44, 23, 71);
@@ -122,3 +123,114 @@ function checkWinner() {
     }
 };
 checkWinner()
+*/
+
+/*
+//Arrays
+const friend1 = 'Michael';
+const friend2 = 'Steven';
+const friend3 = 'Peter';
+
+const friends = ['Michael', 'Steven', 'Peter']; //literal array structure
+console.log(friends);
+
+//const years = new Array(1991, 1994, 2009, 2020);
+
+console.log(friends[0]); //retrieve objects from an array
+console.log(friends[2]);
+
+console.log(friends.length); // get the number of objects in an array
+console.log(friends[friends.length - 1]); // get the last object in an array, regardless of the # of items
+
+friends[2] = 'Jay'; // change a specific index in an array
+console.log(friends);
+
+const oscar = ['Oscar', 'Romero', 2037 - 1988, 'teacher', friends];
+console.log(oscar);
+
+// exercise
+const calcAge = function (birthYear) {
+    return 2037 - birthYear;
+}
+const years = [1990, 1967, 2002, 2018]
+
+const age1 = calcAge(years[0]);
+const age2 = calcAge(years[1]);
+const age3 = calcAge(years[years.length - 1]);
+console.log(age1, age2, age3);
+
+const ages = [calcAge(years[0]), calcAge(years[1]), calcAge(years[years.length - 1])];
+console.log(ages);
+*/
+
+/*
+// basic array methods
+
+//Add elements 
+const friends = ['Michael', 'Steven', 'Peter'];
+const newLength = friends.push('Jay');
+console.log(friends);
+console.log(newLength);
+
+friends.unshift('John');
+console.log(friends);
+
+//remove elements
+friends.pop(); // removes the last element in an array
+console.log(friends);
+
+const popped = friends.pop();
+console.log(popped);
+console.log(friends);
+
+friends.shift(); // removes first element in an array
+console.log(friends)
+
+//positions in an array
+console.log(friends.indexOf('Steven'));
+console.log(friends.indexOf('Bob'));
+
+console.log(friends.includes('Steven'));
+console.log(friends.includes('Bob'));
+
+if (friends.includes('Steven')) {
+    console.log('You have a friend called Steven');
+}
+*/
+
+/*
+//coding challenge
+const calcTip = function (bills) {
+    return bills >= 50 && bills <= 300 ? bills * .15 : bills * .2;
+};
+
+const bills = [125, 555, 44];
+
+
+const tips = [calcTip(bills[0]), calcTip(bills[1]), calcTip(bills[2])];
+const totals = [bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2]];
+
+console.log(bills, tips, totals);
+*/
+
+
+//objects
+
+const oscarArray = [
+    'Oscar',
+    'Romero',
+    2037 - 1988,
+    'coder',
+    ['Stephany', 'Josue', 'Kegan']
+];
+
+//key value arrays
+const oscar = {
+    firstName: 'Oscar',
+    lastName: 'Romero',
+    age: 2037 - 1988,
+    job: 'coder',
+    friends: ['Stephany', 'Josue', 'Kegan']
+}
+
+console.log(oscar)
