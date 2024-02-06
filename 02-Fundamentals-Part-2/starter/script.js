@@ -166,7 +166,7 @@ console.log(ages);
 /*
 // basic array methods
 
-//Add elements 
+//Add elements
 const friends = ['Michael', 'Steven', 'Peter'];
 const newLength = friends.push('Jay');
 console.log(friends);
@@ -213,7 +213,7 @@ const totals = [bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2]];
 console.log(bills, tips, totals);
 */
 
-
+/*
 //objects
 
 const oscarArray = [
@@ -234,3 +234,106 @@ const oscar = {
 }
 
 console.log(oscar)
+*/
+
+/*
+//object vs dot notation
+const oscar = {
+    firstName: 'Oscar',
+    lastName: 'Romero',
+    age: 2037 - 1988,
+    job: 'coder',
+    friends: ['Stephany', 'Josue', 'Kegan']
+};
+console.log(oscar);// dot notation
+console.log(oscar.age);
+console.log(oscar['lastName']); //bracket notation
+
+const nameKey = 'Name';
+console.log(oscar['first' + nameKey]);
+console.log(oscar['last' + nameKey]);
+
+const interestedIn = prompt('What do you want to know about Oscar? Choose between firstName, lastName, age, job, and friends');
+
+
+if (oscar[interestedIn]) {
+    console.log(oscar[interestedIn]);
+} else {
+    console.log('Wrong Request! Choose between firstName, lastName, age, job, and friends')
+};
+
+oscar.location = 'South Bay';
+oscar['twitter'] = '@elonsucks';
+
+console.log(oscar)
+
+//challenge
+//"Oscar has three friends, and his best friend is Kegan"
+console.log(`${oscar.firstName} has ${oscar.friends.length} friends and his best friend is ${oscar.friends[2]}`);
+*/
+
+
+//object methods
+const oscar = {
+    firstName: 'Oscar',
+    lastName: 'Romero',
+    birthYear: 1988,
+    job: 'coder',
+    friends: ['Stephany', 'Josue', 'Kegan'],
+    hasDriversLicense: true,
+
+    // calcAge: function (birthYear) {
+    //     return 2037 - birthYear;
+    // }
+    // calcAge: function () {
+    //     console.log(this)
+    //     return 2037 - this.birthYear;
+    // }
+
+    calcAge: function () {
+        this.age = 2037 - this.birthYear;
+        return this.age;
+    },
+    hasALicense: function () {
+        if (this.hasDriversLicense === true) {
+            return `and he has a driver's license`
+        } else {
+            return `and he does not have a driver's license`
+        }
+    },
+    getSummary: function () {
+        return `${this.firstName} is a ${this.calcAge()} year old ${this.job}, and he has ${this.hasDriversLicense ? 'a' : 'no'} driver's license.`
+    }
+};
+
+console.log(oscar.calcAge())
+console.log(oscar.age);//dot
+
+//challenge
+//"Oscar is a 46 year old coder, and he has a driver's license"
+
+console.log(`${oscar.firstName} is a ${oscar.age} year old ${oscar.job}, ${oscar.hasALicense()}.`);
+console.log(oscar.getSummary());
+
+const mark = {
+    fullName: 'Mark Miller',
+    mass: 78,
+    height: 1.69,
+    calcBmi: function () {
+        this.bmi = (this.mass / (this.height * this.height)).toFixed(2);
+        return this.bmi
+    }
+};
+
+const john = {
+    fullName: 'John Smith',
+    mass: 92,
+    height: 1.95,
+    calcBmi: function () {
+        this.bmi = (this.mass / (this.height * this.height)).toFixed(2);
+        return this.bmi
+    }
+};
+
+console.log(`${john.fullName}'s BMI (${john.calcBmi()}) is higher than ${mark.fullName}'s BMI (${mark.calcBmi()})!`)
+
