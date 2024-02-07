@@ -272,7 +272,7 @@ console.log(oscar)
 console.log(`${oscar.firstName} has ${oscar.friends.length} friends and his best friend is ${oscar.friends[2]}`);
 */
 
-
+/*
 //object methods
 const oscar = {
     firstName: 'Oscar',
@@ -346,4 +346,58 @@ if (mark.bmi > john.bmi) {
     console.log(`${john.fullName}'s BMI (${john.bmi}) is higher than ${mark.fullName}'s BMI (${mark.bmi})!`)
 } else {
     console.log(`They have the same BMI`)
+}
+*/
+
+
+//Loops
+//console.log('Lifting weights repitition 1')
+// FOR LOOPS keeps running while condition is true. 
+for (let rep = 1; rep <= 10; rep++) {
+    console.log(`Lifting weights repitition ${rep}`)
+};
+
+
+const oscar = [
+    'Oscar',
+    'Romero',
+    1988,
+    'coder',
+    ['Stephany', 'Josue', 'Kegan'],
+    true,
+];
+
+const types = [];
+
+for (let i = 0; i < oscar.length; i++) {
+    console.log(oscar[i], typeof oscar[i]);
+
+    // filling the types array
+    //types[i] = typeof oscar[i];
+    types.push(typeof oscar[i]);
+}
+
+console.log(types);
+
+const years = [1991, 1988, 1969, 2024];
+const age = [];
+
+for (let i = 0; i < years.length; i++) {
+    age.push(2037 - years[i]);
+}
+console.log(age);
+
+//continue and break statement 
+console.log('--- ONLY STRINGS ---')
+for (let i = 0; i < oscar.length; i++) {
+    if (typeof oscar[i] !== 'string') continue;
+
+    console.log(oscar[i], typeof oscar[i]);
+}
+
+console.log('--- break with numbers ---')
+for (let i = 0; i < oscar.length; i++) {
+    if (typeof oscar[i] === 'number') break;
+
+    console.log(oscar[i], typeof oscar[i]);
 }
