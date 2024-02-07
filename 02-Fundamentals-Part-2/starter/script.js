@@ -357,8 +357,8 @@ for (let rep = 1; rep <= 10; rep++) {
     console.log(`Lifting weights repitition ${rep}`)
 };
 
-
-const oscar = [
+//looping arrays
+/*const oscar = [
     'Oscar',
     'Romero',
     1988,
@@ -400,4 +400,29 @@ for (let i = 0; i < oscar.length; i++) {
     if (typeof oscar[i] === 'number') break;
 
     console.log(oscar[i], typeof oscar[i]);
+}*/
+
+//looping backwards and loop in a loop
+const oscar = [
+    'Oscar',
+    'Romero',
+    1988,
+    'coder',
+    ['Stephany', 'Josue', 'Kegan'],
+    true
+];
+
+//looping backwards from index 4 to 0
+for (let i = oscar.length - 1; i >= 0; i--) {
+    console.log(i, oscar[i]);
+};
+
+//loop in a loop
+
+for (let exercise = 1; exercise < 4; exercise++) {
+    console.log(`--- Starting exercise--- ${exercise}`);
+
+    for (let rep = 1; rep < 6; rep++) {
+        console.log(`Exercsise ${exercise} lifting weights repitition ${rep}`)
+    }
 }
