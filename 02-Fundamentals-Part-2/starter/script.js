@@ -349,13 +349,13 @@ if (mark.bmi > john.bmi) {
 }
 */
 
-
+/*
 //Loops
 //console.log('Lifting weights repitition 1')
-// FOR LOOPS keeps running while condition is true. 
+// FOR LOOPS keeps running while condition is true.
 for (let rep = 1; rep <= 10; rep++) {
     console.log(`Lifting weights repitition ${rep}`)
-};
+};*/
 
 //looping arrays
 /*const oscar = [
@@ -387,7 +387,7 @@ for (let i = 0; i < years.length; i++) {
 }
 console.log(age);
 
-//continue and break statement 
+//continue and break statement
 console.log('--- ONLY STRINGS ---')
 for (let i = 0; i < oscar.length; i++) {
     if (typeof oscar[i] !== 'string') continue;
@@ -401,7 +401,7 @@ for (let i = 0; i < oscar.length; i++) {
 
     console.log(oscar[i], typeof oscar[i]);
 }*/
-
+/*
 //looping backwards and loop in a loop
 const oscar = [
     'Oscar',
@@ -425,4 +425,63 @@ for (let exercise = 1; exercise < 4; exercise++) {
     for (let rep = 1; rep < 6; rep++) {
         console.log(`Exercsise ${exercise} lifting weights repitition ${rep}`)
     }
+}*/
+
+
+//while loop used when you don't know how many iterations youre going to have
+// for (let rep = 1; rep <= 10; rep++) {
+//     console.log(`Lifting weights repitition ${rep}`)
+// };
+/*
+let rep = 1;
+while (rep <= 10) {
+    // console.log(`Lifting weights repitition ${rep}`);
+    rep++;
 }
+
+let dice = Math.trunc(Math.random() * 6) + 1;
+
+
+while (dice !== 6) {
+    console.log(`you rolled a ${dice}`);
+    dice = Math.trunc(Math.random() * 6) + 1;
+    if (dice === 6) console.log('Loop is about to end');
+}*/
+
+const calcTip = function (bill) {
+    return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
+}
+
+const bills = [
+    22,
+    295,
+    176,
+    440,
+    37,
+    105,
+    10,
+    1100,
+    86,
+    52
+];
+const tips = [];
+const totals = [];
+
+for (let i = 0; i < bills.length; i++) {
+    const tip = calcTip(bills[i]);
+    tips.push(tip);
+    totals.push(tip + bills[i]);
+}
+
+console.log(bills, tips, totals)
+
+const calcAverage = function (arr) {
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+        sum += arr[i];
+    }
+    return sum / arr.length
+}
+console.log(calcAverage(totals))
+console.log(calcAverage(tips))
+console.log(calcAverage(bills))
