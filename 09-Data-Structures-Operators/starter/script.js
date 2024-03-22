@@ -51,6 +51,78 @@ const restaurant = {
   },
 };
 
+const rest1 = {
+  name: 'Capri',
+  //numGuests: 20,
+  numGuests: 0,
+};
+
+const rest2 = {
+  name: 'La Piazza',
+  owner: 'Giovanni Rossi',
+};
+//or assigment operator
+//rest1.numGuests = rest1.numGuests || 10;
+//rest2.numGuests = rest2.numGuests || 10;
+//rest1.numGuests ||= 10;
+//rest2.numGuests ||= 10;
+
+//nullish operator ??
+rest1.numGuests ??= 10;
+rest2.numGuests ??= 10;
+
+// and operator &&
+//rest2.owner = rest2.owner && '<Anonymous>';
+//rest1.owner = rest1.owner && '<Anonymous>';
+
+rest1.owner &&= rest1.owner && '<Anonymous>';
+rest2.owner &&= rest2.owner && '<Anonymous>';
+
+console.log(rest1);
+console.log(rest2);
+
+/*
+///////
+//nullish coalescing operator ?? operator
+restaurant.numGuests = 0;
+const guests = restaurant.numGuests || 10;
+console.log(guests);
+//nullish values are null or undefined (0 and '' are values  with nullish coalescing operator)
+const guestCorrect = restaurant.numGuests ?? 10;
+console.log(guestCorrect);
+
+/*
+/////////
+console.log('----or---'); || operator 
+//logical operators use any data type, return any data type, use short-circuiting
+console.log(3 || 'Jonas'); // short circuiting is if the 1st operand is truthy, the other operand wont be evaluated.
+console.log('' || 'Jonas');
+console.log(true || 0);
+console.log(undefined || null);
+
+console.log(undefined || 0 || '' || 'Hello' || 23 || null);
+
+restaurant.numGuests = 23;
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1);
+
+const guests2 = restaurant.numGuests || 10;
+console.log(guests2);
+
+console.log('---- and ---'); && operator
+console.log(0 && 'Jonas'); //// short circuiting is if the 1st operand is falsy, the other operand wont be evaluated.
+console.log(7 && 'Jonas');
+console.log('Hello' && 23 && null & 'Jonas');
+
+// pratical example
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('mushrooms', 'spinach');
+}
+
+restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
+
+/*
+////////rest pattern
 //rest pattern for destructuring
 
 // spread cause it is on the right side of =
