@@ -51,14 +51,65 @@ const restaurant = {
     console.log(otherIng);
   },
 };
-if (restaurant.openingHours && restaurant.openingHours.mon)
-  console.log(restaurant.openingHours.mon.open);
 
-//with optional chaining
-console.log(restaurant.openingHours.mon?.open);
+//////////////////lopping opjects; object keys, values and entries
+//Property names
+const properties = Object.keys(openingHours);
+console.log(properties);
+
+let openStr = `We are open on ${properties.length} days: `;
+
+for (const day of Object.keys(openingHours)) {
+  openStr += `${day}, `;
+}
+console.log(openStr);
+
+//Property value
+const values = Object.values(openingHours);
+console.log(values);
+
+///entire object
+const entries = Object.entries(openingHours);
+console.log(entries);
+
+for (const [key, { open, close }] of entries) {
+  console.log(`On ${key}, we open at ${open} and close at ${close}.`);
+}
 
 /*
-//looping over an array i.e. 'for of' loop
+//////////////////optional chaining 
+if (restaurant.openingHours && restaurant.openingHours.mon)
+  //console.log(restaurant.openingHours.mon.open);
+
+  //with optional chaining
+  console.log(restaurant.openingHours.mon?.open);
+console.log(restaurant.openingHours?.mon?.open);
+
+//example
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+for (const day of days) {
+  console.log(day);
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  console.log(`On ${day}, we open at ${open}`);
+}
+
+// methods
+console.log(restaurant.order?.(0, 1) ?? 'method doesnt exist');
+console.log(restaurant.orderRisotto?.(0, 1) ?? 'method does not exist');
+
+// arrays
+const user = [
+  {
+    name: 'jonas',
+    email: 'hellojonas@.io',
+  },
+];
+
+console.log(user[0]?.name ?? 'Users Array empty.');
+if (user.length > 0) console.log(user[0]?.name);
+else console.log('Users Array empty.');
+/*
+/////////////////looping over an array i.e. 'for of' loop
 const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
 
 for (const item of menu) console.log(item);
@@ -100,8 +151,7 @@ console.log(rest1);
 console.log(rest2);
 
 /*
-///////
-//nullish coalescing operator ?? operator
+////////////////nullish coalescing operator ?? operator
 restaurant.numGuests = 0;
 const guests = restaurant.numGuests || 10;
 console.log(guests);
@@ -110,7 +160,7 @@ const guestCorrect = restaurant.numGuests ?? 10;
 console.log(guestCorrect);
 
 /*
-/////////
+/////////////////////
 console.log('----or---'); || operator 
 //logical operators use any data type, return any data type, use short-circuiting
 console.log(3 || 'Jonas'); // short circuiting is if the 1st operand is truthy, the other operand wont be evaluated.
@@ -140,7 +190,7 @@ if (restaurant.orderPizza) {
 restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
 
 /*
-////////rest pattern
+///////////////////rest pattern
 //rest pattern for destructuring
 
 // spread cause it is on the right side of =
@@ -178,7 +228,7 @@ restaurant.orderPizza('mushrooms', 'onions', 'spinach');
 restaurant.orderPizza('mushrooms');
 
 /*
-////Spread Operator
+///////////////////////Spread Operator
 const arr = [7, 8, 9];
 const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
 console.log(badNewArr);
@@ -227,8 +277,7 @@ console.log(restaurantCopy.name);
 console.log(restaurant.name);
 
 /*
-///////
-// Destructuring objects
+/////////////// Destructuring objects
 restaurant.orderDelivery({
   time: '22.30',
   address: 'Via del Sole, 21',
@@ -316,7 +365,7 @@ const [[, rating], [, ratingscount]] = ratings;
 
 const [fiveStarRatings, oneStarRatings, threeStarRatings = 0] = ratingStars;
 */
-/*
+
 const game = {
   team1: 'Bayern Munich',
   team2: 'Borrussia Dortmund',
@@ -389,4 +438,25 @@ printGoals('Davies', 'Muller');
 //7.
 team1 < team2 && console.log('Team 1 is more likely to win');
 team1 > team2 && console.log('Team 2 is more likely to win');
-*/
+
+//coding # 2
+//1.
+for (const [i, player] of game.scored.entries()) {
+  console.log(`Goal ${i + 1}: ${player}`);
+}
+
+//2.
+const odds = Object.values(game.odds);
+let average = 0;
+for (const odd of odds) average += odd;
+average /= odds.length;
+console.log(average);
+
+//3.
+for (const [team, odd] of Object.entries(game.odds)) {
+  const teamStr = team === 'x' ? 'draw' : `victory ${game[team]}`;
+  console.log(`Odd of ${teamStr} is ${odd}.`);
+}
+// Odd of victory Bayern Munich: 1.33
+//       Odd of draw: 3.25
+//       Odd of victory Borrussia Dortmund: 6.5
