@@ -52,6 +52,156 @@ const restaurant = {
   },
 };
 
+//////Strings/////
+//Split and Join
+console.log('a+very+nice+string'.split('+'));
+console.log('Jonas Schmedtman'.split(' '));
+
+const [firstName, lastName] = 'Jonas Schmedtman'.split(' ');
+
+const newName = [`Mr.`, firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+
+const capitalizeName = function (name) {
+  const names = name.split(' ');
+  const namesUpper = [];
+
+  for (const n of names) {
+    namesUpper.push(n[0].toUpperCase() + n.slice(1));
+  }
+  console.log(namesUpper.join(' '));
+};
+
+capitalizeName('jessica ann smith davis');
+
+//Padding a string//
+const message = 'Go to gate 23!';
+console.log(message.padStart(25, '+').padEnd(35, '+'));
+console.log('jonas'.padStart(25, '-'));
+
+const maskeCreditCard = function (number) {
+  const str = number + ''; //this converts numner to a string
+  const last = str.slice(-4);
+  return last.padStart(str.length, '*');
+};
+
+console.log(maskeCreditCard(4337855463225678));
+console.log(maskeCreditCard(4425659777486548));
+
+//repeat//
+const message2 = 'Bad weather... All departures delayed... ';
+console.log(message2.repeat(5));
+
+const planeInLine = function (n) {
+  console.log(`There are ${n} planes in line ${'🛩️'.repeat(n)}`);
+};
+
+planeInLine(3);
+planeInLine(5);
+planeInLine(2);
+
+/*
+/////Part 2//////
+const airline = 'TAP Air Portugal';
+
+//Fix caps on  name
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+const passenger = 'joNas'; // Jonas
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect =
+  passengerLower[0].toUpperCase() + passengerLower.slice(1);
+console.log(passengerCorrect);
+
+//comparing emails
+const email = 'hello@jonas.io';
+const loginEmail = 'Helllo@Jonas.io \n';
+
+// const loweEmail = loginEmail.toLowerCase();
+// const trimmedEmail = loweEmail.trim();
+// console.log(trimmedEmail);
+
+const nomalizedEmail = loginEmail.toLowerCase().trim();
+console.log(nomalizedEmail);
+
+console.log(email === nomalizedEmail);
+
+//replace parts of strings
+const priceGB = '288,97¢';
+const priceUS = priceGB.replace('¢', '$').replace(',', '.');
+console.log(priceUS);
+
+const announcement = 'All passengers come to boarding door. Boarding door 23';
+console.log(announcement.replace('door', 'gate'));
+//console.log(announcement.replaceAll('door', 'gate'));
+
+console.log(announcement.replace(/door/g, 'gate'));
+
+//Booleans
+const plane = 'Airbus A320neo';
+console.log(plane.includes('A320'));
+console.log(plane.includes('Boeing'));
+console.log(plane.startsWith('Air'));
+
+if (plane.startsWith('Airbus') && plane.endsWith('neo')) {
+  console.log('Part of the Airbus family.');
+}
+
+//practice exercise
+const checkBaggage = function (items) {
+  const baggage = items.toLowerCase();
+  if (baggage.includes('knife') || baggage.includes('gun')) {
+    console.log('You are NOT allowed to board the plane.');
+  } else {
+    console.log('Welcome Aboard!');
+  }
+};
+checkBaggage('I have a laptop, some Food, and a pocket Knife');
+checkBaggage('Socks and Camera');
+checkBaggage('Got some snacks and a gun for protection');
+
+/*
+/////// Part 1 /////
+const plane = 'A320';
+
+console.log(plane[0]);
+console.log(plane[1]);
+console.log(plane[2]);
+console.log('B737'[0]);
+
+console.log(airline.length);
+console.log('B737'.length);
+
+console.log(airline.indexOf('r'));
+console.log(airline.lastIndexOf('r'));
+console.log(airline.indexOf('Portugal'));
+
+console.log(airline.slice(4));
+console.log(airline.slice(4, 7));
+
+console.log(airline.slice(0, airline.indexOf(' ')));
+console.log(airline.slice(airline.lastIndexOf(' ')));
+
+console.log(airline.slice(-2));
+console.log(airline.slice(1, -1));
+
+const checkMiddleSeat = function (seat) {
+  //B and E are middle seats
+  const s = seat.slice(-1);
+  if (s === 'B' || s === 'E') console.log('You got the middle seat 😬');
+  else console.log('You got lucky!😎');
+};
+
+checkMiddleSeat('11B');
+checkMiddleSeat('23C');
+checkMiddleSeat('3E');
+
+console.log(new String('jonas'));
+console.log(typeof new String('jonas'));
+
+console.log(typeof new String('jonas').slice(1));
+
 /*
 ///////// maps: iterations /////////////
 const question = new Map([
@@ -581,7 +731,7 @@ Let's continue with our football betting app! This time, we have a map with a lo
 
 GOOD LUCK 😀
 */
-
+/*
 const gameEvents = new Map([
   [17, '⚽️ GOAL'],
   [36, '🔁 Substitution'],
@@ -617,3 +767,4 @@ for (const [min, event] of gameEvents) {
   const half = min <= 45 ? 'FIRST' : 'SECOND';
   console.log(`${half}[HALF] ${min}: ${event}`);
 }
+*/
