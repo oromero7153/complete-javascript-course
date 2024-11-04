@@ -129,7 +129,7 @@ TEST DATA 1: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1
 TEST DATA 2: Marks weights 95 kg and is 1.88 m tall. John weights 85 kg and is 1.76 m tall.
 
 GOOD LUCK 😀
-*/
+
 let markMass = 78;
 let markHeight = 1.69;
 let BMIMark = markMass / markHeight ** 2;
@@ -142,7 +142,7 @@ console.log(BMIMark, BMIJohn);
 
 let markerHigherBMI = (BMIMark >= BMIJohn);
 console.log(markerHigherBMI);
-/*
+*/
 
 ////////////////////////////////////
 // Strings and Template Literals
@@ -166,7 +166,6 @@ lines');
 console.log(`String
 multiple
 lines`);
-*/
 
 /*const age = 16;
 
