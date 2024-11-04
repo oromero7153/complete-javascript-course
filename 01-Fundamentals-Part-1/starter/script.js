@@ -14,7 +14,7 @@ let firstName = "Matilda";
 console.log(firstName);
 console.log(firstName);
 console.log(firstName);
-
+/*
 // Variable name conventions
 let jonas_matilda = "JM";
 let $function = 27;
@@ -113,7 +113,7 @@ console.log(x, y);
 
 const averageAge = (ageJonas + ageSarah) / 2;
 console.log(ageJonas, ageSarah, averageAge);
-*/
+
 
 ////////////////////////////////////
 // Coding Challenge #1
@@ -130,23 +130,19 @@ TEST DATA 2: Marks weights 95 kg and is 1.88 m tall. John weights 85 kg and is 1
 
 GOOD LUCK 😀
 */
+let markMass = 78;
+let markHeight = 1.69;
+let BMIMark = markMass / markHeight ** 2;
 
-// const massMark = 78;
-// const heightMark = 1.69;
-// const massJohn = 92;
-// const heightJohn = 1.95;
+let johnMass = 92;
+let johnHeight = 1.95;
+let BMIJohn = johnMass / (johnHeight * johnHeight);
 
+console.log(BMIMark, BMIJohn);
+
+let markerHigherBMI = (BMIMark >= BMIJohn);
+console.log(markerHigherBMI);
 /*
-const massMark = 95;
-const heightMark = 1.88;
-const massJohn = 85;
-const heightJohn = 1.76;
-
-const BMIMark = massMark / heightMark ** 2;
-const BMIJohn = massJohn / (heightJohn * heightJohn);
-const markHigherBMI = BMIMark > BMIJohn;
-
-console.log(BMIMark, BMIJohn, markHigherBMI);
 
 ////////////////////////////////////
 // Strings and Template Literals
