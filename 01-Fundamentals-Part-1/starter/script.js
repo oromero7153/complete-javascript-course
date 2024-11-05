@@ -143,7 +143,7 @@ console.log(BMIMark, BMIJohn);
 let markerHigherBMI = (BMIMark >= BMIJohn);
 console.log(markerHigherBMI);
 */
-
+/*
 ////////////////////////////////////
 // Strings and Template Literals
 const firstName = 'Jonas';
@@ -167,7 +167,7 @@ console.log(`String
 multiple
 lines`);
 
-/*const age = 16;
+const age = 16;
 
 if (age >= 18) {
     console.log("Sarah can take her driver's test 🚗");
@@ -184,9 +184,9 @@ if (birthYear <= 2000) {
 } else {
     century = 21;
 }
-console.log(century)*/
+console.log(century)
 
-/*
+
 //type conversion
 const inputYear = '1991';
 console.log(Number(inputYear), inputYear);
@@ -198,16 +198,15 @@ console.log(typeof (NaN));
 console.log(String(23), 23);
 
 //type coercion
-console.log('i am ' + 23 + ' years old'); //coerces number into a string
+console.log('I am ' + 23 + ' years old.'); // coerces number into a string
 console.log('23' - '10' - 3); //coerces strings into numbers
 console.log('23' / '2'); //coerces strings into numbers
 
-let n = '1' + 1; //this converts '11' string
-n = n - 1; // here, the string is converted to a number
+let n = '1' + 1; //+ operator converts '11' string
+n = n - 1; // here, the - operator converts to a number
 console.log(n);
-*/
 
-/*
+
 //truthy and falsy... 5 falsy values: 0, '', undefined, null, NaN
 
 console.log(Boolean(0));
@@ -223,18 +222,17 @@ if (money) {
     console.log("you should get a job!")
 };
 
-let height = 0;
+let height = 66;
 if (height) {
     console.log('Yay! Height is defined')
 } else {
     console.log('Height is Undefined')
 }
-*/
 
-/*
+
 //equality operators
 
-const age = '18';  //=== strict equality, no type coercion; == loose equality, type coercion;
+const age = 18;  //=== strict equality, no type coercion; == loose equality, type coercion;
 if (age === 18) console.log('You just became an adult! (strict)');
 
 if (age == 18) console.log('You just became an adult! (loose)');
@@ -253,10 +251,8 @@ if (favorite === 23) {
 
 if (favorite !== 23) {
     console.log('Why not 23?')
-}
-*/
+} // ! is the not operator 
 
-/*
 //logical operators
 const hasDriversLicense = true; //a
 const hasGoodVision = true; //b
@@ -267,11 +263,11 @@ console.log(!hasDriversLicense);
 
 const shouldDrive = hasDriversLicense && hasGoodVision;
 
-// if (shouldDrive) {
-//     console.log('Sarah is able to drive')
-// } else {
-//     console.log('Someone else should drive...')
-// }
+ if (shouldDrive) {
+     console.log('Sarah is able to drive')
+ } else {
+     console.log('Someone else should drive...')
+}
 
 const isTired = true; //c
 console.log(hasDriversLicense && hasGoodVision && isTired);
@@ -281,11 +277,10 @@ if (hasDriversLicense && hasGoodVision && !isTired) {
 } else {
     console.log('Someone else should drive...')
 }
-*/
 
-/*
+
 //Switch statements
-const day = 'monday';
+const day = String(prompt('What day is it?'));
 
 switch (day) {
     case 'monday': // day === 'monday'
@@ -321,9 +316,7 @@ if (day === 'monday') {
 } else {
     console.log('Not a valid day!');
 }
-*/
 
-/*
 //statements and expressions
 //expression produce a value
 3 + 4
@@ -337,8 +330,8 @@ if (23 > 10) {
 console.log(`I'm ${2037 - 1991} years old`)
 */
 
-/*
-//ternary operator
+
+//ternary operator ? is the if block
 const age = 23
 age >= 18 ? console.log('I like to drink wine') : console.log('I like to drink water');
 
@@ -350,10 +343,17 @@ let drink2;
 if (age >= 18) {
     drink2 = 'wine';
 } else {
-    drink2 = 'water'
+    drink2 = 'water';
 };
 console.log(drink2);
 
 console.log(`I like to drink ${age >= 18 ? 'wine' : 'water'}`);
-*/
+
+const bill = 275;
+const tip = bill <= 300 && bill>=50 ?  bill * 0.15 :
+bill * 0.2;
+
+console.log(`The bill was ${bill}, the tip was ${tip}, and the total value ${bill + tip}`);
+
+
 
