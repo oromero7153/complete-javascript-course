@@ -9,7 +9,6 @@ if (hasDriversLicense) console.log('I can Drive')
 
 //const interface = "Audio"; can't use certain words because they are reserved.
 */
-
 /*
 //functions
 function logger() {
@@ -22,6 +21,7 @@ logger();
 logger();
 
 function fruitProcessor(apples, oranges) {
+    console.log(apples, oranges)
     const juice = `Juice with ${apples} apples, and ${oranges} oranges.`;
     return juice;
 }
@@ -32,18 +32,19 @@ console.log(appleJuice);
 const appleOrangeJuice = fruitProcessor(2, 4);
 console.log(appleOrangeJuice);
 
-const num = Number('23)
-*/
+const num = Number('23');
+console.log(num);
 
+*/
 /*
-//Function Declarations
+//Function Declarations... function can be called before being defined
 function calcAge1(birthYear) {
     return 2037 - birthYear;
 }
 
 const age1 = calcAge1(1988);
 
-//function expression
+//function expression... function cannot be called before being defined
 const calcAge2 = function (birthYear) {
     return 2037 - birthYear;
 }
@@ -51,9 +52,8 @@ const age2 = calcAge2(1988);
 
 console.log(age1, age2);
 */
-
 /*
-//arrow function
+//arrow function... they do not get a THIS keyword;
 const calcAge3 = birthYear => 2037 - birthYear;
 const age3 = calcAge3(1988);
 console.log(age3);
@@ -78,7 +78,8 @@ function cutFruitPieces(fruit) {
 
 function fruitProcessor(apples, oranges) {
     const applePieces = cutFruitPieces(apples)
-    const orangePieces = cutFruitPieces(oranges)
+    const orangePieces = cutFruitPieces(oranges);
+    console.log(orangePieces)
     const juice = `Juice with ${applePieces} pieces apples, and ${orangePieces} pieces oranges.`;
     return juice;
 }
@@ -136,7 +137,7 @@ console.log(friends);
 
 //const years = new Array(1991, 1994, 2009, 2020);
 
-console.log(friends[0]); //retrieve objects from an array
+console.log(friends[0]); //retrieve objects from an array. 0 is the first object in an array.
 console.log(friends[2]);
 
 console.log(friends.length); // get the number of objects in an array
@@ -163,16 +164,16 @@ const ages = [calcAge(years[0]), calcAge(years[1]), calcAge(years[years.length -
 console.log(ages);
 */
 
-/*
+
 // basic array methods
 
 //Add elements
 const friends = ['Michael', 'Steven', 'Peter'];
-const newLength = friends.push('Jay');
+const newLength = friends.push('Jay');//adds to the end of the array
 console.log(friends);
 console.log(newLength);
 
-friends.unshift('John');
+friends.unshift('John');// adds to the front of the array
 console.log(friends);
 
 //remove elements
@@ -196,7 +197,7 @@ console.log(friends.includes('Bob'));
 if (friends.includes('Steven')) {
     console.log('You have a friend called Steven');
 }
-*/
+
 
 /*
 //coding challenge
@@ -447,7 +448,7 @@ while (dice !== 6) {
     dice = Math.trunc(Math.random() * 6) + 1;
     if (dice === 6) console.log('Loop is about to end');
 }*/
-
+/*
 const calcTip = function (bill) {
     return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
 }
@@ -485,3 +486,4 @@ const calcAverage = function (arr) {
 console.log(calcAverage(totals))
 console.log(calcAverage(tips))
 console.log(calcAverage(bills))
+*/
