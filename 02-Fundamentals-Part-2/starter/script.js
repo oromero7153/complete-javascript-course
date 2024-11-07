@@ -164,7 +164,7 @@ const ages = [calcAge(years[0]), calcAge(years[1]), calcAge(years[years.length -
 console.log(ages);
 */
 
-
+/*
 // basic array methods
 
 //Add elements
@@ -235,10 +235,10 @@ const oscar = {
 }
 
 console.log(oscar)
-*/
 
-/*
-//object vs dot notation
+
+
+//bracket vs dot notation
 const oscar = {
     firstName: 'Oscar',
     lastName: 'Romero',
@@ -283,39 +283,34 @@ const oscar = {
     friends: ['Stephany', 'Josue', 'Kegan'],
     hasDriversLicense: true,
 
-    // calcAge: function (birthYear) {
-    //     return 2037 - birthYear;
+    // calcAge: function(birthYear) {
+    //     return 2037-birthYear;
     // }
-    // calcAge: function () {
-    //     console.log(this)
-    //     return 2037 - this.birthYear;
-    // }
+
+    // calcAge: function() {
+    //     console.log(this);
+    //     return 2037-this.birthYear;
+    //}
 
     calcAge: function () {
         this.age = 2037 - this.birthYear;
         return this.age;
-    },
-    hasALicense: function () {
-        if (this.hasDriversLicense === true) {
-            return `and he has a driver's license`
-        } else {
-            return `and he does not have a driver's license`
-        }
-    },
-    getSummary: function () {
-        return `${this.firstName} is a ${this.calcAge()} year old ${this.job}, and he has ${this.hasDriversLicense ? 'a' : 'no'} driver's license.`
+    }, 
+    getSummary: function(){
+        return `${this.firstName} is a ${this.calcAge()}-year old ${this.job}, and he has ${this.hasDriversLicense ? 'a' : 'no'} drive's license.`
     }
 };
-
 console.log(oscar.calcAge())
-console.log(oscar.age);//dot
+console.log(oscar.age);
+console.log(oscar.age);
+console.log(oscar.age);
 
 //challenge
 //"Oscar is a 46 year old coder, and he has a driver's license"
+ console.log(oscar.getSummary())
 
-console.log(`${oscar.firstName} is a ${oscar.age} year old ${oscar.job}, ${oscar.hasALicense()}.`);
-console.log(oscar.getSummary());
 
+/*
 const mark = {
     fullName: 'Mark Miller',
     mass: 78,
@@ -356,10 +351,10 @@ if (mark.bmi > john.bmi) {
 // FOR LOOPS keeps running while condition is true.
 for (let rep = 1; rep <= 10; rep++) {
     console.log(`Lifting weights repitition ${rep}`)
-};*/
-
+};
+*/
 //looping arrays
-/*const oscar = [
+const oscar = [
     'Oscar',
     'Romero',
     1988,
@@ -367,41 +362,15 @@ for (let rep = 1; rep <= 10; rep++) {
     ['Stephany', 'Josue', 'Kegan'],
     true,
 ];
+// console.log(oscar[0])
+// console.log(oscar[1])
+//...
+// console.log(oscar[4])
 
-const types = [];
-
-for (let i = 0; i < oscar.length; i++) {
-    console.log(oscar[i], typeof oscar[i]);
-
-    // filling the types array
-    //types[i] = typeof oscar[i];
-    types.push(typeof oscar[i]);
+for(let i = 0; ; i++){
+    console.log(oscar[i])
 }
 
-console.log(types);
-
-const years = [1991, 1988, 1969, 2024];
-const age = [];
-
-for (let i = 0; i < years.length; i++) {
-    age.push(2037 - years[i]);
-}
-console.log(age);
-
-//continue and break statement
-console.log('--- ONLY STRINGS ---')
-for (let i = 0; i < oscar.length; i++) {
-    if (typeof oscar[i] !== 'string') continue;
-
-    console.log(oscar[i], typeof oscar[i]);
-}
-
-console.log('--- break with numbers ---')
-for (let i = 0; i < oscar.length; i++) {
-    if (typeof oscar[i] === 'number') break;
-
-    console.log(oscar[i], typeof oscar[i]);
-}*/
 /*
 //looping backwards and loop in a loop
 const oscar = [
