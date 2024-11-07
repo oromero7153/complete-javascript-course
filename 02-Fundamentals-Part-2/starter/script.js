@@ -357,17 +357,16 @@ for (let rep = 1; rep <= 10; rep++) {
 const oscar = [
     'Oscar',
     'Romero',
-    1988,
+    2037 - 1988,
     'coder',
     ['Stephany', 'Josue', 'Kegan'],
-    true,
 ];
 // console.log(oscar[0])
 // console.log(oscar[1])
 //...
 // console.log(oscar[4])
 
-for(let i = 0; ; i++){
+for(let i = 0; i <5 ; i++){
     console.log(oscar[i])
 }
 
