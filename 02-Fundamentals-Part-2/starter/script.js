@@ -353,6 +353,7 @@ for (let rep = 1; rep <= 10; rep++) {
     console.log(`Lifting weights repitition ${rep}`)
 };
 */
+/*
 //looping arrays
 const oscar = [
     'Oscar',
@@ -360,16 +361,48 @@ const oscar = [
     2037 - 1988,
     'coder',
     ['Stephany', 'Josue', 'Kegan'],
+    true,
 ];
+
+const types=[];
 // console.log(oscar[0])
 // console.log(oscar[1])
 //...
 // console.log(oscar[4])
 
-for(let i = 0; i <5 ; i++){
-    console.log(oscar[i])
+for (let i = 0; i < oscar.length; i++) {
+    //reading from the oscar array
+    console.log(oscar[i], typeof oscar[i])
+    //filling the types of the array (string, number, etc...)
+    //types[i] = typeof oscar[i];
+
+    types.push(typeof oscar[i])
+}
+console.log(types)
+
+const years = [1988, 2020, 2023, 1985];
+const ages = [];
+
+for (let i = 0; i<years.length; i ++){
+    ages.push(2037-years[i]);
+}
+console.log(ages);
+
+//continue and break statements
+console.log('--ONLY STRINGS--')
+for (let i = 0; i < oscar.length; i++) {
+   if (typeof oscar[i] !== 'string') continue;
+
+   console.log(oscar[i], typeof oscar[i])
 }
 
+console.log('--break with numbers--')
+for (let i = 0; i < oscar.length; i++) {
+   if (typeof oscar[i] === 'number') break;
+
+   console.log(oscar[i], typeof oscar[i])
+}
+*/
 /*
 //looping backwards and loop in a loop
 const oscar = [
@@ -378,7 +411,7 @@ const oscar = [
     1988,
     'coder',
     ['Stephany', 'Josue', 'Kegan'],
-    true
+    true,
 ];
 
 //looping backwards from index 4 to 0
@@ -392,31 +425,33 @@ for (let exercise = 1; exercise < 4; exercise++) {
     console.log(`--- Starting exercise--- ${exercise}`);
 
     for (let rep = 1; rep < 6; rep++) {
-        console.log(`Exercsise ${exercise} lifting weights repitition ${rep}`)
+        console.log(`Exercsise ${exercise}: lifting weights repitition ${rep}`);
     }
-}*/
-
-
+}
+*/
+/*
 //while loop used when you don't know how many iterations youre going to have
 // for (let rep = 1; rep <= 10; rep++) {
 //     console.log(`Lifting weights repitition ${rep}`)
 // };
-/*
+
 let rep = 1;
 while (rep <= 10) {
-    // console.log(`Lifting weights repitition ${rep}`);
+    //console.log(`Lifting weights repitition ${rep}`);
     rep++;
 }
 
 let dice = Math.trunc(Math.random() * 6) + 1;
-
+//console.log(dice)
 
 while (dice !== 6) {
     console.log(`you rolled a ${dice}`);
     dice = Math.trunc(Math.random() * 6) + 1;
     if (dice === 6) console.log('Loop is about to end');
-}*/
-/*
+}
+*/
+
+
 const calcTip = function (bill) {
     return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
 }
@@ -454,4 +489,3 @@ const calcAverage = function (arr) {
 console.log(calcAverage(totals))
 console.log(calcAverage(tips))
 console.log(calcAverage(bills))
-*/
