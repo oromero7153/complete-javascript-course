@@ -128,10 +128,24 @@ const largeNum = [13252, 144121, 185, 1128, 457, 33, 122, 33, 45544];
 
 const findLrgNum = function (arr) {
   let max = arr[0];
+  let min = arr[0];
+  let str = '';
+  let sorted = arr.sort((a, b) => a - b); // this formula compares two elements,
+  //if the output is negative, then the number is smaller. i.e. 185-13252 makes 185 smaller.
+  //If the output is positive, then the number is larger. i.e. 13252-185 makes 13252 larger.
+
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] > max) max = arr[i];
+    if (arr[i] < min) min = arr[i];
+    str =
+      str +
+      `${arr[i]} is a number and it is in the number ${
+        i + 1
+      } position of the array...`;
   }
-  console.log(max);
+  console.log(max, min);
+  console.log('...' + str);
+  console.log(sorted);
 };
 
 findLrgNum(largeNum);
