@@ -115,7 +115,7 @@ matilda.calcAge();
 const f = jonas.calcAge;
 f(); //this is not defining anything in this version, similar to line 86.
 */
-
+/*
 const jonas = {
   firstName: 'Jonas',
   year: 1991,
@@ -158,3 +158,58 @@ addExpr(2, 5, 6, 12);
 //   return a + b;
 // };
 // addArrow(2, 5, 8);
+*/
+/*
+let age = 30;
+let oldAge = age;
+console.log(age);
+console.log(oldAge);
+
+const me = {
+  name: 'Jonas',
+  age: 30,
+};
+
+const friend = me;
+friend.age = 27;
+console.log('Friend:', friend);
+console.log('Me:', me);
+*/
+// primitive types
+let lastName = 'Williams';
+let oldLastName = lastName;
+lastName = 'Davis';
+
+console.log(lastName, oldLastName);
+
+//reference type
+const jessica = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+};
+
+const marriedJessica = jessica;
+marriedJessica.lastName = 'Davis';
+//console.log('Before Marriage:', jessica);
+//console.log('After Marriage:', marriedJessica);
+
+//copying objects
+const jessica2 = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+  family: ['Alice', 'Bob'],
+};
+
+const jessicaCopy = Object.assign({}, jessica2);
+jessicaCopy.lastName = 'Davis';
+
+//console.log('Before Marriage:', jessica2);
+//console.log('After Marriage:', jessicaCopy);
+
+jessicaCopy.family.push('Mary');
+jessicaCopy.family.push('John');
+
+console.log('Before Marriage:', jessica2);
+console.log('After Marriage:', jessicaCopy);
