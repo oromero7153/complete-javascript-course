@@ -981,15 +981,13 @@ const sarahDog = dogs.filter(dog => dog.owners.includes('Sarah'));
 
 sarahDog.forEach(dog => {
   let message;
-  if (dog.curfood > dog.recommendedFood) {
+  if (dog.curFood > dog.recommendedFood) {
     message = 'The dog is fed too much.';
-  } else if (dog.curfood < dog.recommendedFood) {
+  } else if (dog.curFood < dog.recommendedFood) {
     message = 'The dog is fed too little.';
   } else {
     message = 'The dog is fed the right amount.';
   }
-
-  // Step 3: Display the result in the console
   console.log(`Sarah's dog: ${message}`);
 });
 
