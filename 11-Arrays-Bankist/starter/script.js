@@ -977,16 +977,21 @@ console.log(dogs);
 
 //2.
 
-const sarahDog = dogs
-  .filter(dog => dog.owners.includes('Sarah'))
-  .map(dog => {
-    if (dog.curfood > dog.recommendedFood) return 'The dog is fed too little.';
-    if (dog.curfood < dog.recommendedFood) return 'The dog is fed too much.';
-    if (dog.curfood === dog.recommendedFood)
-      return 'The dog is fed the right amount.';
-  });
+const sarahDog = dogs.filter(dog => dog.owners.includes('Sarah'));
 
-console.log(sarahDog);
+sarahDog.forEach(dog => {
+  let message;
+  if (dog.curfood > dog.recommendedFood) {
+    message = 'The dog is fed too much.';
+  } else if (dog.curfood < dog.recommendedFood) {
+    message = 'The dog is fed too little.';
+  } else {
+    message = 'The dog is fed the right amount.';
+  }
+
+  // Step 3: Display the result in the console
+  console.log(`Sarah's dog: ${message}`);
+});
 
 // const swimmingAdjacent = [
 //   ...new Set(
