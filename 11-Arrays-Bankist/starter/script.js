@@ -10,6 +10,7 @@ const account1 = {
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
+  type: 'premium',
 };
 
 const account2 = {
@@ -17,6 +18,7 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
+  type: 'standard',
 };
 
 const account3 = {
@@ -24,6 +26,7 @@ const account3 = {
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
+  type: 'premium',
 };
 
 const account4 = {
@@ -31,6 +34,7 @@ const account4 = {
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
+  type: 'basic',
 };
 
 const accounts = [account1, account2, account3, account4];
@@ -292,6 +296,7 @@ console.log('Oscar'.at(-1));
 */
 
 /*
+///////////////////////////////////////
 //// Looping Arrays: forEach
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -317,6 +322,7 @@ movements.forEach(function (mov, i, arr) {
 });
 */
 /*
+///////////////////////////////////////
 ////  forEach with maps and sets.
 
 const currencies = new Map([
@@ -388,6 +394,7 @@ console.log('---second set of data---');
 checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 */
 /*
+///////////////////////////////////////
 ////  The map Method creates an array based on original array that is passed through a condition. 
 
 const euroToUsd = 1.1;
@@ -416,6 +423,7 @@ const movementsDesc = movements.map(
 console.log(movementsDesc);
 */
 /*
+///////////////////////////////////////
 ////  The filter Method filters elements in the original array that satisfy a condition. 
 
 const deposits = movements.filter(function (mov) {
@@ -433,6 +441,7 @@ const withdrawals = movements.filter(mov => mov < 0);
 console.log(withdrawals);
 */
 /*
+///////////////////////////////////////
 ////  The reduce Method boils down the elements of an array to one value, using an accumalator (acc).
 
 //accumalator --> snowball effect
@@ -495,6 +504,7 @@ console.log('--- Second Set of data ---');
 calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
 */
 /*
+///////////////////////////////////////
 ////  The magic of chaining Methods
 
 const euroToUsd = 1.1;
@@ -551,7 +561,6 @@ console.log(accounts);
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 console.log(account);
 */
-
 /*
 ////  The some and every Method
 console.log(movements);
@@ -576,8 +585,8 @@ console.log(movements.some(deposit));
 console.log(movements.every(deposit));
 console.log(movements.filter(deposit));
 */
-
 /*
+///////////////////////////////////////
 ////  The flat and flatMap Method
 
 //Flat method only goes one layer deep in the array.
@@ -610,6 +619,8 @@ const overallChain2 = accounts
 console.log(overallChain2);
 */
 
+/*
+///////////////////////////////////////
 //Sorting Arrays
 const owners = ['Jonas', 'Zach', 'Martha', 'Adam'];
 console.log(owners.sort()); //.sort() defaults the array into alphabetical order, but mutates the original array. does not work with mixed arrays i.e. strings and numbers
@@ -641,3 +652,347 @@ console.log(movements);
 
 movements.sort((a, b) => b - a);
 console.log(movements);
+*/
+///////////////////////////////////////
+//findLast and findLastIndex
+/*
+console.log(movements);
+const lastWithdrawal = movements.findLast(mov => mov < 0);
+console.log(lastWithdrawal);
+
+//'Your latest large movement was x moments ago.'
+const latestLargestMovementIndex = movements.findLastIndex(mov => {
+  return mov > 1000;
+});
+console.log(latestLargestMovementIndex);
+console.log(
+  `Your latest large movement was ${
+    movements.length - latestLargestMovementIndex - 1
+  } moments ago.`
+);
+*/
+/*
+///////////////////////////////////////
+// Coding Challenge #4
+
+/*
+This time, Julia and Kate are studying the activity levels of different dog breeds.
+
+YOUR TASKS:
+1. Store the the average weight of a "Husky" in a variable "huskyWeight"
+2. Find the name of the only breed that likes both "running" and "fetch" ("dogBothActivities" variable)
+3. Create an array "allActivities" of all the activities of all the dog breeds
+4. Create an array "uniqueActivities" that contains only the unique activities (no activity repetitions). HINT: Use a technique with a special data structure that we studied a few sections ago.
+5. Many dog breeds like to swim. What other activities do these dogs like? Store all the OTHER activities these breeds like to do, in a unique array called "swimmingAdjacent".
+6. Do all the breeds have an average weight of 10kg or more? Log to the console whether "true" or "false".
+7. Are there any breeds that are "active"? "Active" means that the dog has 3 or more activities. Log to the console whether "true" or "false".
+
+BONUS: What's the average weight of the heaviest breed that likes to fetch? HINT: Use the "Math.max" method along with the ... operator.
+
+TEST DATA:
+*/
+/*
+const breeds = [
+  {
+    breed: 'German Shepherd',
+    averageWeight: 32,
+    activities: ['fetch', 'swimming'],
+  },
+  {
+    breed: 'Dalmatian',
+    averageWeight: 24,
+    activities: ['running', 'fetch', 'agility'],
+  },
+  {
+    breed: 'Labrador',
+    averageWeight: 28,
+    activities: ['swimming', 'fetch'],
+  },
+  {
+    breed: 'Beagle',
+    averageWeight: 12,
+    activities: ['digging', 'fetch'],
+  },
+  {
+    breed: 'Husky',
+    averageWeight: 26,
+    activities: ['running', 'agility', 'swimming'],
+  },
+  {
+    breed: 'Bulldog',
+    averageWeight: 36,
+    activities: ['sleeping'],
+  },
+  {
+    breed: 'Poodle',
+    averageWeight: 18,
+    activities: ['agility', 'fetch'],
+  },
+];
+
+//1.
+const huskyWeight = breeds.find(breed => breed.breed === 'Husky').averageWeight;
+console.log(huskyWeight);
+
+//2.
+const dogBothActivities = breeds.find(
+  breed =>
+    breed.activities.includes('fetch') && breed.activities.includes('running')
+);
+console.log(dogBothActivities);
+
+//3.
+const allActivities = breeds.flatMap(breed => breed.activities);
+console.log(allActivities);
+
+//4.
+const uniqueActivities = [...new Set(allActivities)];
+console.log(uniqueActivities);
+
+//5.
+const swimmingAdjacent = [
+  ...new Set(
+    breeds
+      .filter(breed => breed.activities.includes('swimming'))
+      .flatMap(breed => breed.activities)
+      .filter(activities => activities !== 'swimming')
+  ),
+];
+
+console.log(swimmingAdjacent);
+
+//6.
+console.log(breeds.every(breed => breed.averageWeight > 10)); // every is used when all need to meet the condition.
+
+//7.
+console.log(breeds.some(breed => breed.activities.length >= 3)); //some is used when any element meets the condition.
+
+// bonus
+const fetchWeights = breeds
+  .filter(breed => breed.activities.includes('fetch'))
+  .map(breed => breed.averageWeight);
+const heaviestFetchBreed = Math.max(...fetchWeights);
+
+console.log(heaviestFetchBreed);
+console.log(fetchWeights);
+*/
+/*
+///////////////////////////////
+//Array grouping
+
+console.log(movements);
+
+const groupedMovements = Object.groupBy(movements, movement =>
+  movement > 0 ? 'deposits' : 'withdrawals'
+);
+console.log(groupedMovements);
+
+const groupedByActivity = Object.groupBy(accounts, account => {
+  const movementCount = account.movements.length;
+
+  if (movementCount >= 8) return 'very active';
+  if (movementCount >= 4) return 'active';
+  if (movementCount >= 1) return 'moderate';
+  return 'inactive';
+});
+
+console.log(groupedByActivity);
+
+//const groupedAccounts = Object.groupBy(accounts, account => account.type);
+const groupedAccounts = Object.groupBy(accounts, ({ type }) => type);
+
+console.log(groupedAccounts);
+*/
+/*
+///////////////////////////////////////
+//More Ways of Creating and Filling Arrays
+
+// the old way
+const arr = [1, 2, 2, 3, 4];
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+const x = new Array(7); // this creates an array with 7 empty elements console logs '(7) [empty × 7]' not useful;
+console.log(x);
+
+// fill() method
+//empty arrays
+x.fill(1, 3, 5); // this fills this array with this element, mutates the array
+console.log(x);
+// the 1 is the element that will go into the array, the 3 is the begin parameter, the 5 is the end parameter.
+
+// arrays that have elements in it.
+arr.fill(23, 2, 6);
+console.log(arr);
+
+//array.from()
+const y = Array.from({ length: 7 }, () => 1); // creates an array similar to line 814
+console.log(y);
+
+const z = Array.from({ length: 7 }, (cur, i) => i + 1); // console logs [1, 2, 3, 4, 5, 6, 7], cur can also be an _.
+console.log(z);
+
+//convert node list into an array
+
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    //we used Array.from the query selector which is a node list
+    document.querySelectorAll('.movements__value'),
+    // we used a mapping like function to convert initial array into the array of numbers that we intended.
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsUI);
+});
+*/
+/*
+///////////////////////////////////////
+//Non-Destructive Alternatives: toReversed, toSorted, toSpliced, with
+
+// toReversed() method
+console.log(movements);
+//const reversedMovements = movements.reverse();
+//console.log(reversedMovements);
+console.log(movements); // the original has been mutated by the destructive reverse() method. slice() would create shallow copy.
+
+const nonDestructiveMethod = movements.toReversed(); //toReversed() reverses the array without mutating it
+console.log(nonDestructiveMethod);
+console.log(movements);
+
+//toSorted() method, doesnt mutate the orignal array, sort() would mutate
+//toSpliced() method, doesnt mutate the orignal array, splice() would mutate
+
+// with() method, updates the array without mutating the original array
+//movements[1] = 2000;
+const newMovements = movements.with(1, 2000);// 1 is the index parameter, parameter is the value. 
+console.log(newMovements);
+
+console.log(movements);
+*/
+/*
+///////////////////////////////////////
+//array method practice
+//1
+const bankDepositSum = accounts
+  .flatMap(acc => acc.movements) //take all the movements and put into an array(not an array of arrays)
+  .filter(mov => mov > 0) //filtered out all the positive withdrawals
+  .reduce((sum, cur) => sum + cur, 0); // added them all together.
+
+console.log(bankDepositSum);
+
+//2
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+
+// console.log(numDeposits1000);
+
+const numDeposits1000 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+
+console.log(numDeposits1000);
+
+//prefixed ++ operator
+let a = 10; //++ in front actual call the ++ operator to do its job of adding 1
+console.log(++a);
+
+//3
+const { deposits, withdrawals } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, cur) => {
+      // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+      return sums;
+    },
+    { deposits: 0, withdrawals: 0 }
+  );
+console.log(deposits, withdrawals);
+
+//4
+//this is a nice title -> This Is a Nice Title
+
+const convertTitleCase = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ');
+  return capitalize(titleCase);
+};
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a nice LONG title but not too long'));
+console.log(convertTitleCase('and here is another title with an EXAMPLE'));
+*/
+///////////////////////////////////////
+// Coding Challenge #5
+
+/* 
+- Julia and Kate are still studying dogs, and this time they are studying if dogs are eating too much or too little.
+- Formula for calculating recommended food portion: recommendedFood = weight ** 0.75 * 28. (The result is in the grams of food, and the weight needs to be in KG).
+- Eating too much means the dog's current food portion is larger than the recommended portion, and eating too little is the opposite.
+- Eating an okay amount means the dog's current food portion is within a range 10% above and 10% below the recommended portion (see hint).
+
+1. Loop over the array containing dog objects, and for each dog, calculate the recommended food portion and add it to the object as a new property. Do NOT create a new array, simply loop over the array.  recommendedFood = weight ** 0.75 * 28. (The result is in grams of food, and the weight needs to be in kg)
+2. Find Sarah's dog and log to the console whether it's eating too much or too little. HINT: Some dogs have multiple owners, so you first need to find Sarah in the owners array, and so this one is a bit tricky (on purpose) 🤓
+3. Create an array containing all owners of dogs who eat too much ('ownersEatTooMuch') and an array with all owners of dogs who eat too little ('ownersEatTooLittle').
+4. Log a string to the console for each array created in 3., like this: "Matilda and Alice and Bob's dogs eat too much!" and "Sarah and John and Michael's dogs eat too little!"
+5. Log to the console whether there is any dog eating EXACTLY the amount of food that is recommended (just true or false)
+6. Log to the console whether there is any dog eating an OKAY amount of food (just true or false)
+7. Create an array containing the dogs that are eating an OKAY amount of food (try to reuse the condition used in 6.)
+8. Create a shallow copy of the dogs array and sort it by recommended food portion in an ascending order (keep in mind that the portions are inside the array's objects)
+
+HINT 1: Use many different tools to solve these challenges, you can use the summary lecture to choose between them 😉
+HINT 2: Being within a range 10% above and below the recommended portion means: current > (recommended * 0.90) && current < (recommended * 1.10). Basically, the current portion should be between 90% and 110% of the recommended portion.
+
+TEST DATA:
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] }
+];
+
+GOOD LUCK 😀
+*/
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+console.log(dogs);
+
+// 1.
+dogs.forEach(dog => {
+  dog.recommendedFood = Math.trunc(dog.weight ** 0.75 * 28);
+});
+
+console.log(dogs);
+
+//2.
+
+const sarahDog = dogs
+  .filter(dog => dog.owners.includes('Sarah'))
+  .map(dog => {
+    if (dog.curfood > dog.recommendedFood) return 'The dog is fed too little.';
+    if (dog.curfood < dog.recommendedFood) return 'The dog is fed too much.';
+    if (dog.curfood === dog.recommendedFood)
+      return 'The dog is fed the right amount.';
+  });
+
+console.log(sarahDog);
+
+// const swimmingAdjacent = [
+//   ...new Set(
+//     breeds
+//       .filter(breed => breed.activities.includes('swimming'))
+//       .flatMap(breed => breed.activities)
+//       .filter(activities => activities !== 'swimming')
+//   ),
+// ];

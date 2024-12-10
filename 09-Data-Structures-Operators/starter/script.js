@@ -866,23 +866,23 @@ Afterwards, test with your own test data!
 GOOD LUCK 😀
 */
 
-document.body.append(document.createElement('textarea'));
-document.body.append(document.createElement('button'));
+// document.body.append(document.createElement('textarea'));
+// document.body.append(document.createElement('button'));
 
-document.querySelector('button').addEventListener('click', function () {
-  const text = document.querySelector('textarea').value;
-  const rows = text.split('\n');
+// document.querySelector('button').addEventListener('click', function () {
+//   const text = document.querySelector('textarea').value;
+//   const rows = text.split('\n');
 
-  for (const row of rows) {
-    const [first, second] = row.toLowerCase().trim().split('_');
+//   for (const row of rows) {
+//     const [first, second] = row.toLowerCase().trim().split('_');
 
-    const newWord = `${first}${second.replace(
-      second[0],
-      second[0].toUpperCase()
-    )}`;
-    console.log(newWord);
-  }
-});
+//     const newWord = `${first}${second.replace(
+//       second[0],
+//       second[0].toUpperCase()
+//     )}`;
+//     console.log(newWord);
+//   }
+// });
 
 // underscore_case = underscoreCase
 //  first_name
@@ -896,3 +896,48 @@ document.querySelector('button').addEventListener('click', function () {
 // };
 
 // camelCase('first_name');
+
+//////////////////
+// New operations to make sets Useful
+const italianFoods = new Set([
+  'pasta',
+  'gnocchi',
+  'tomatoes',
+  'olive oil',
+  'garlic',
+  'basil',
+]);
+
+const mexicanFoods = new Set([
+  'tortillas',
+  'beans',
+  'rice',
+  'tomatoes',
+  'avocado',
+  'garlic',
+]);
+
+// intersection method... intersection()
+const commonFoods = italianFoods.intersection(mexicanFoods); // this finds common elements in the two sets.
+console.log('Intersection:', commonFoods);
+console.log([...commonFoods]);
+
+//Union method... union()
+const italianMexicanFusion = italianFoods.union(mexicanFoods); //this finds all the unique elements in the set.
+console.log('union:', italianMexicanFusion);
+console.log(new Set([...italianFoods, ...mexicanFoods]));
+
+//difference method, difference() gives only the elements that are unique in the first set and are not in the second set.
+const uniqueItalianFoods = italianFoods.difference(mexicanFoods);
+console.log('difference:', uniqueItalianFoods); //difference: Set(4) {'pasta', 'gnocchi', 'olive oil', 'basil'}
+
+const uniqueMexicanFoods = mexicanFoods.difference(italianFoods);
+console.log('DIfference Mexican:', uniqueMexicanFoods);
+
+//symmetricDifference () method... gives only the unique elements in the two sets.
+const uniqueItalianAndMexicanFoods =
+  italianFoods.symmetricDifference(mexicanFoods);
+console.log(uniqueItalianAndMexicanFoods);
+
+// is disjoint checks  if one set is completely different from the other.
+console.log(italianFoods.isDisjointFrom(mexicanFoods)); //console logs false.
