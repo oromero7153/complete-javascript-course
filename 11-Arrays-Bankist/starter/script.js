@@ -962,7 +962,8 @@ GOOD LUCK 😀
 const dogs = [
   { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
   { weight: 8, curFood: 200, owners: ['Matilda'] },
-  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John', 'Leo'] },
+  { weight: 18, curFood: 244, owners: ['Joe'] },
   { weight: 32, curFood: 340, owners: ['Michael'] },
 ];
 
@@ -977,25 +978,75 @@ console.log(dogs);
 
 //2.
 
-const sarahDog = dogs.filter(dog => dog.owners.includes('Sarah'));
+const sarahDog = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(
+  `Sarah's dog eats too much ${
+    sarahDog.curFood > sarahDog.recommendedFood ? 'much' : 'little'
+  }.`
+);
 
-sarahDog.forEach(dog => {
-  let message;
+//3.
+const ownersEatTooMuch = dogs
+  .filter(dog => dog.curFood > dog.recommendedFood)
+  .flatMap(dog => dog.owners);
+
+console.log(ownersEatTooMuch);
+
+const ownersEatTooLittle = dogs
+  .filter(dog => dog.curFood < dog.recommendedFood)
+  .flatMap(dog => dog.owners);
+
+console.log(ownersEatTooLittle);
+
+//4.
+console.log(`${ownersEatTooMuch.join(' ')}'s dogs are eating too much`);
+console.log(`${ownersEatTooLittle.join(' ')}'s dogs are eating too little`);
+
+//5.
+console.log(dogs.some(dog => dog.curFood === dog.recommendedFood));
+
+//6.
+console.log(
+  dogs.every(
+    dog =>
+      dog.curFood < dog.recommendedFood * 1.1 &&
+      dog.curFood < dog.recommendedFood * 0.9
+  )
+);
+
+//7.
+const ownersEatOk = dogs
+  .filter(
+    dog =>
+      dog.curFood < dog.recommendedFood * 1.1 &&
+      dog.curFood < dog.recommendedFood * 0.9
+  )
+  .flatMap(dog => dog.owners);
+console.log(ownersEatOk);
+
+//8.
+
+const dogsGroupedByPortion = Object.groupBy(dogs, dog => {
   if (dog.curFood > dog.recommendedFood) {
-    message = 'The dog is fed too much.';
+    return 'Too Much';
   } else if (dog.curFood < dog.recommendedFood) {
-    message = 'The dog is fed too little.';
+    return 'Too Little';
   } else {
-    message = 'The dog is fed the right amount.';
+    return 'Exact';
   }
-  console.log(`Sarah's dog: ${message}`);
 });
 
-// const swimmingAdjacent = [
-//   ...new Set(
-//     breeds
-//       .filter(breed => breed.activities.includes('swimming'))
-//       .flatMap(breed => breed.activities)
-//       .filter(activities => activities !== 'swimming')
-//   ),
-// ];
+console.log(dogsGroupedByPortion);
+
+//9.
+const dogsGroupedByOnwers = Object.groupBy(
+  dogs,
+  dog => `${dog.owners.length}-owners`
+);
+console.log(dogsGroupedByOnwers);
+
+// 10.
+const dogsSorted = dogs.toSorted(
+  (a, b) => a.recommendedFood - b.recommendedFood
+);
+console.log(dogsSorted);
