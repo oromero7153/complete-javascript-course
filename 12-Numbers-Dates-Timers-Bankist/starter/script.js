@@ -81,19 +81,29 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const date = new Date(acc.movementsDates[i]);
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+
+    const displayDate = `${day}/${month}/${year}`;
 
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
+    <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
@@ -142,7 +152,7 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   // Display balance
   calcDisplayBalance(acc);
@@ -154,6 +164,12 @@ const updateUI = function (acc) {
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
+//fake always login
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
+
+//display is day/month/year
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -170,6 +186,14 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+    // create current date and time;
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = `${now.getHours()}`.padStart(2, 0);
+    const min = `${now.getMinutes()}`.padStart(2, 0);
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -198,6 +222,9 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
 
+    //add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
     // Update UI
     updateUI(currentAccount);
   }
@@ -211,6 +238,9 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
+
+    //add loan date
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
@@ -326,7 +356,7 @@ console.log((2.7).toFixed(3)); // will add zeros to fill the decimal places 2.70
 console.log((2.345).toFixed(2)); // will remove the 5... 2.34
 console.log(+(2.345).toFixed(2)); // will remove the 5 and the + turns in to a number
 */
-
+/*
 /////////////////////////////////////////////////
 // the Remainder operator
 console.log(5 % 2); //% is the remainder operator. In this case it is 1... 5 = 2 * 2 + 1
@@ -349,3 +379,84 @@ labelBalance.addEventListener('click', function () {
     if (i % 3 === 0) row.style.backgroundColor = 'blue'; // finding the 3rd row in the movements row
   });
 });
+*/
+/*
+/////////////////////////////////////////////////
+// the Numeric Separators
+//287,460,000,000
+const diameter = 287_460_000_000;
+console.log(diameter);
+
+const price = 345_99;
+console.log(price);
+
+const transferFee1 = 15_00;
+const transferFee2 = 1_500;
+
+const PI = 3_1415; // cannot replace decimals. cannot place 2 in arrow, in the beginning or the end of a number.
+
+console.log(Number('230_000')); // this produces a NaN
+*/
+/*
+/////////////////////////////////////////////////
+// Working with BinInt
+// BigInt can safely store number largers thant the max safe integer
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER);
+console.log(2 ** 53 + 1);
+console.log(2 ** 53 + 2);
+console.log(2 ** 53 + 3);
+console.log(2 ** 53 + 4);
+console.log(15165456132189135184891n);
+console.log(BigInt(151654561321891));
+
+//Operations
+console.log(10000n + 10000n);
+console.log(6546545465465546n * 10000000n);
+
+// Cannot mix BigInt and other types
+const huge = 654564564654654651321n;
+const num = 23;
+console.log(huge * BigInt(num));
+
+//exceptions
+console.log(20n > 15);
+console.log(20n === 20); //returns false cause === doesnt do type coercion
+console.log(typeof 20n);
+console.log(20n == '20'); // returns true because == does type coercion
+
+//Division
+console.log(10n / 3n); //returns 3n removes decimals
+console.log(10 / 3); //returns 3.3333333335
+*/
+
+/////////////////////////////////////////////////
+// Creating Dates
+
+// //create a date
+// //const now = new Date(); //Thu Dec 12 2024 12:21:31 GMT-0800 (Pacific Standard Time) the curent date
+// console.log(now);
+// console.log(new Date('Thu Dec 12 2024 12:19:1'));
+// console.log(new Date('December 24, 2002')); //Tue Dec 24 2002 00:00:00 GMT-0800 (Pacific Standard Time) can tell you the day based on a specific date
+
+// console.log(new Date(account1.movementsDates[0])); //Mon Nov 18 2019 13:31:17 GMT-0800 (Pacific Standard Time) can parse the date from an array
+
+// console.log(new Date(2037, 10, 19, 15, 23, 55)); // year, month(0 based), day, hour, minute, seconds
+// console.log(new Date(2037, 10, 33)); // can tell you the correct days for a month, this would be 12/3/2037
+// console.log(new Date(3 * 24 * 60 * 60 * 1000)); //
+// console.log('----------');
+// //working with dates
+// const future = new Date(2037, 10, 19, 15, 23);
+// console.log(future);
+// console.log(future.getFullYear()); //gets year, never use getYear()
+// console.log(future.getMonth()); //0 based, 10 is november
+// console.log(future.getDay());
+// console.log(future.toISOString()); //international standard time
+// console.log(future.getTime()); //this gets the current time in miliseconds
+// console.log(new Date(2142285780000));
+
+// console.log(Date.now()); //this gives us a time stamp.
+
+// //there are set versions of all the methods.
+// future.setFullYear(2040); // this sets the specific year.
+// console.log(future);
