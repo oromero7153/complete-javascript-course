@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,19 +104,19 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -126,7 +126,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -164,7 +164,7 @@ btnLogin.addEventListener('click', function (e) {
   );
   console.log(currentAccount);
 
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+  if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and message
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
@@ -182,7 +182,7 @@ btnLogin.addEventListener('click', function (e) {
 
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
+  const amount = +inputTransferAmount.value;
   const receiverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
   );
@@ -206,7 +206,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -223,7 +223,7 @@ btnClose.addEventListener('click', function (e) {
 
   if (
     inputCloseUsername.value === currentAccount.username &&
-    Number(inputClosePin.value) === currentAccount.pin
+    +inputClosePin.value === currentAccount.pin
   ) {
     const index = accounts.findIndex(
       acc => acc.username === currentAccount.username
@@ -251,3 +251,101 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+
+/*
+/////////////////////////////////////////////////
+// Converting and Checking Numbers
+console.log(23 === 23.0);
+
+//base 10 are numbers 0-9
+//binary base 2 are numbers 0-1 javascript has trouble representing fractions and decimals.
+
+console.log(Number('23')); // same as
+console.log(+'23'); //+ does type coercion. changing the string to a number
+
+//parsing
+console.log(Number.parseInt('30px', 10)); // finds the number in the string and turns it to a number. Has to start with a number. i.e. 'e23' wont work. The '10' as the parameter signfies base 10.
+
+console.log(Number.parseInt('2.5rem'));
+console.log(Number.parseFloat('2.5rem')); // works with decimals
+
+//check if value is NaN
+console.log(Number.isNaN(20)); //false, it is a number
+console.log(Number.isNaN('20')); //false it is a number
+console.log(Number.isNaN(+'20x')); //true, it is NaN
+console.log(Number.isNaN(23 / 0)); //false, infinity is a number
+
+//isFinite is the best way to check a number
+console.log(Number.isFinite(20)); // true because it is a number
+console.log(Number.isFinite('20')); // false, not a number
+console.log(Number.isFinite(23 / 0)); // false, inifnity is not finite
+
+//you can check a number with isInteger
+console.log(Number.isInteger(23));
+console.log(Number.isInteger(23.0));
+*/
+/*
+/////////////////////////////////////////////////
+// Math and Rounding
+console.log(Math.sqrt(25)); // same as
+console.log(25 ** (1 / 2));
+console.log(8 ** (1 / 3)); //cubic root
+
+console.log(Math.max(5, 18, 23, 4, 12)); //returns highest number
+console.log(Math.min(5, 18, '23', 4, 12)); //returns smallest number min and max does type coercion
+
+console.log(Math.PI * Number.parseFloat('10px') ** 2);
+
+console.log(Math.trunc(Math.random() * 6) + 1); //math random gets a number between 0 and 1. *6 is used for the 6 sides of a dice and we +1 to offset truncation
+
+//function to generate a random number, given a range.
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
+console.log(randomInt(10, 20));
+console.log(randomInt(0, 3));
+
+//rounding integers all of these do type coercion
+console.log(Math.trunc(23.3)); //removes any decimal point
+
+console.log(Math.round(23.3)); // rounds to the nearest integer, 23
+console.log(Math.round(23.9)); // this one to 24
+
+console.log(Math.ceil(23.3)); // this one rounds up to 24
+console.log(Math.ceil(23.9));
+
+console.log(Math.floor(23.3)); // this one rounds down 23
+console.log(Math.floor(23.9));
+
+console.log(Math.trunc(-23.3)); // doesnt really work with neg. integers use floor
+console.log(Math.floor(-23.3));
+
+//rounding decimals;
+console.log((2.7).toFixed(0)); //to fixed returns a string
+console.log((2.7).toFixed(3)); // will add zeros to fill the decimal places 2.700
+console.log((2.345).toFixed(2)); // will remove the 5... 2.34
+console.log(+(2.345).toFixed(2)); // will remove the 5 and the + turns in to a number
+*/
+
+/////////////////////////////////////////////////
+// the Remainder operator
+console.log(5 % 2); //% is the remainder operator. In this case it is 1... 5 = 2 * 2 + 1
+console.log(8 % 3); // logs 2... 8 = 2 * 3 + 2
+
+//checking even and odd
+
+console.log(6 % 2); // returns 0, it is an even number
+console.log(7 % 2); // returns 1, not an even number 7 = 2 * 3 +1
+
+const isEven = n => n % 2 === 0;
+console.log(isEven(6));
+console.log(isEven(23));
+console.log(isEven(514));
+
+// you can use the % to find the 'nth' time
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    if (i % 2 === 0) row.style.backgroundColor = 'orange'; // finding the 2nd row in the movements row
+    if (i % 3 === 0) row.style.backgroundColor = 'blue'; // finding the 3rd row in the movements row
+  });
+});
