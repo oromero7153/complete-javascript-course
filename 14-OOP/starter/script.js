@@ -73,7 +73,7 @@ const h1 = document.querySelector('h1');
 console.dir(x => x + 1);
 
 ///////////////////////////////////////
-// Coding Challenge #1
+// Coding Challenge #1 video 223
 
 /* 
 1. Use a constructor function to implement a Car. A car has a make and a speed property. The speed property is the current speed of the car in km/h;
@@ -111,7 +111,7 @@ bmw.brake();
 bmw.brake();
 bmw.accelerate();
 */
-
+/*
 ///////////////////////////////////////
 // es6 classes video 224
 
@@ -142,6 +142,8 @@ class PersonCl {
     return this._fullName;
   }
   // static method in class
+
+  //Static methods are called directly on the class, not on instances of the class. Static methods cannot access this keyword, as they are not associated with any specific instance. Static methods are often used for utility functions that don't need access to instance-specific data.
   static hey() {
     console.log('Hey there 👍');
     console.log(this);
@@ -216,7 +218,7 @@ sarah.init('Sarah', 1979);
 sarah.calcAge();
 
 ///////////////////////////////////////
-// Coding Challenge #2
+// Coding Challenge #2 video 228
 
 /* 
 1. Re-create challenge 1, but this time using an ES6 class;
@@ -228,7 +230,7 @@ DATA CAR 1: 'Ford' going at 120 km/h
 
 GOOD LUCK 😀
 */
-
+/*
 //1.
 class Car2 {
   constructor(make, speed) {
@@ -260,3 +262,361 @@ ford.accelerate();
 ford.brake();
 ford.speedUS = 50;
 console.log(ford);
+*/
+
+///////////////////////////////////////
+// Inheritance Between "Classes": Constructor Functions... video 229
+/*
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+const Student = function (firstName, birthYear, course) {
+  Person.call(this, firstName, birthYear); // we use the call method to set the this keyword to the new construct of student.
+  this.course = course;
+};
+
+//Linking prototypes
+Student.prototype = Object.create(Person.prototype); // we use Object.create because we want to inherit from the Person.prototype, not be the exact same thing.
+
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2020, 'Computer Science');
+console.log(mike);
+mike.introduce();
+mike.calcAge();
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+
+///////////////////////////////////////
+// Coding Challenge #3   video 230
+
+/* 
+1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car. Besides a make and current speed, the EV also has the current battery charge in % ('charge' property);
+2. Implement a 'chargeBattery' method which takes an argument 'chargeTo' and sets the battery charge to 'chargeTo';
+3. Implement an 'accelerate' method that will increase the car's speed by 20, and decrease the charge by 1%. Then log a message like this: 'Tesla going at 140 km/h, with a charge of 22%';
+4. Create an electric car object and experiment with calling 'accelerate', 'brake' and 'chargeBattery' (charge to 90%). Notice what happens when you 'accelerate'! HINT: Review the definiton of polymorphism 😉
+
+DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
+
+GOOD LUCK 😀
+*/
+/*
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+};
+
+Car.prototype.brake = function () {
+  this.speed -= 5;
+  console.log(`${this.make} going at ${this.speed}km/h.`);
+};
+
+const EV = function (make, speed, charge) {
+  Car.call(this, make, speed);
+  this.charge = charge;
+};
+
+// Link the prototypes
+EV.prototype = Object.create(Car.prototype);
+
+EV.prototype.chargeBattery = function (chargeTo) {
+  this.charge = chargeTo;
+};
+EV.prototype.accelerate = function () {
+  this.speed += 20;
+  this.charge--;
+  console.log(
+    `${this.make} going at ${this.speed}km/h, with a charge of ${this.charge}%`
+  );
+};
+
+const tesla = new EV('Tesla', 120, 23);
+tesla.accelerate();
+tesla.chargeBattery(90);
+console.log(tesla);
+tesla.accelerate();
+tesla.brake();
+tesla.brake();
+tesla.brake();
+tesla.accelerate();
+*/
+/*
+///////////////////////////////////////
+// Inheritance Between "Classes": ES6 Classes  video 231
+
+// class declaration
+class PersonCl {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+  //methods will be added to the .prototype property
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name!`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+  // static method in class
+  static hey() {
+    console.log('Hey there 👍');
+    console.log(this);
+  }
+}
+
+class StudentCl extends PersonCl {
+  constructor(fullName, birthYear, course) {
+    // Always needs to happen first. Super accesses the this keyword.
+    super(fullName, birthYear); // Super is the constructor from the parent class. you dont need a super if you are not adding any new properties.
+    this.course = course;
+  }
+
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study ${this.course}`);
+  }
+
+  calcAge() {
+    console.log(
+      `I am ${
+        2037 - this.birthYear
+      } years old, but as a student I feel more like ${
+        2037 - this.birthYear + 10
+      }`
+    );
+  }
+}
+
+const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
+martha.introduce();
+martha.calcAge();
+
+///////////////////////////////////////
+// Inheritance Between "Classes": Object.create  video 232
+
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(PersonProto);
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthYear, course) {
+  PersonProto.init.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+StudentProto.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const jay = Object.create(StudentProto);
+jay.init('Jay', 2010, 'Computer Science');
+jay.introduce();
+jay.calcAge();
+*/
+/*
+///////////////////////////////////////
+// Another Class Example  video 233
+class Account {
+  constructor(ownerName, currency, pin) {
+    this.ownerName = ownerName;
+    this.currency = currency;
+    this.pin = pin;
+    (this.movements = []), (this.locale = navigator.language);
+    console.log(`Thanks for opening an account ${ownerName}`);
+  }
+  //public interface
+  deposit(value) {
+    this.movements.push(value);
+  }
+  withdrawal(value) {
+    this.deposit(-value);
+  }
+
+  approvedLoan(value) {
+    return true;
+  }
+
+  requestLoan(value) {
+    if (this.approvedLoan(value)) {
+      this.deposit(value);
+      console.log(`Loan Approved`);
+    }
+  }
+}
+
+const acc1 = new Account('Jonas', 'EUR', 1111);
+
+// acc1.movements.push(250);
+// acc1.movements.push(-50);
+acc1.deposit(250);
+acc1.withdrawal(140);
+acc1.requestLoan(1000);
+console.log(acc1);
+*/
+///////////////////////////////////////
+// Encapsulation: Private Class Fields and Methods  video 234
+
+// These fields have to be outside of the constructor.
+//1. Public Fields
+//2. Private Fields
+//3. Public Methods
+//4. Private Methods.
+//STATIC VERSION OF THESE 4
+
+class Account {
+  //Public Fields
+  locale = navigator.language;
+  bank = 'Bankist';
+  //Private Fields
+  #movements = [];
+  #pin; // declaring the variable, empty, outside of the constructor allows you to use the variable in the constructor.
+
+  constructor(ownerName, currency, pin) {
+    this.ownerName = ownerName;
+    this.currency = currency;
+    this.#pin = pin;
+    // (this.movements = []), //(this.locale = navigator.language);
+    console.log(`Thanks for opening an account ${ownerName}`);
+  }
+  //public interface (API).. public methods.
+
+  getMovements() {
+    return this.#movements;
+    // cannot return 2 things, so it is not chainable.
+  }
+
+  deposit(value) {
+    this.#movements.push(value);
+    return this;
+  }
+  withdrawal(value) {
+    this.deposit(-value);
+    return this;
+  }
+  //Private Method
+  #approvedLoan(value) {
+    // FAKE METHOD FOR TESTING PURPOSE
+    return true;
+  }
+
+  requestLoan(value) {
+    if (this.#approvedLoan(value)) {
+      this.deposit(value);
+      console.log(`Loan Approved`);
+    }
+    return this;
+  }
+}
+
+const acc1 = new Account('Jonas', 'EUR', 1111);
+
+// acc1.movements.push(250);
+// acc1.movements.push(-50);
+const moves = acc1
+  .deposit(250)
+  .requestLoan(15000)
+  .withdrawal(140)
+  .withdrawal(400)
+  .deposit(252)
+  .getMovements();
+console.log(acc1);
+console.log(moves);
+///////////////////////////////////////
+// Chaining Methods  video 235
+// add -- return this-- at the end of each method to allow to be chainable.
+
+///////////////////////////////////////
+// Coding Challenge #4
+
+/* 
+1. Re-create challenge #3, but this time using ES6 classes: create an 'EVCl' child class of the 'CarCl' class
+2. Make the 'charge' property private;
+3. Implement the ability to chain the 'accelerate' and 'chargeBattery' methods of this class, and also update the 'brake' method in the 'CarCl' class. They experiment with chaining!
+
+DATA CAR 1: 'Rivian' going at 120 km/h, with a charge of 23%
+
+GOOD LUCK 😀
+*/
+
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+  }
+
+  brake() {
+    this.speed -= 5;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+    return this;
+  }
+
+  get speedUS() {
+    return this.speed / 1.6;
+  }
+
+  set speedUS(speed) {
+    this.speed = speed * 1.6;
+  }
+}
+
+class EVCl extends CarCl {
+  #charge;
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
+  chargeBattery(chargeTo) {
+    this.#charge = chargeTo;
+    console.log(`The ${this.make}'s battery is at ${this.#charge}%.`);
+    return this;
+  }
+
+  accelerate() {
+    this.speed += 20;
+    this.#charge--;
+    console.log(
+      `${this.make} is going at ${this.speed} km/h, with a charge of ${
+        this.#charge
+      }%.`
+    );
+    return this;
+  }
+}
+
+const rivian = new EVCl('Rivian', 120, 23);
+rivian.accelerate().chargeBattery(95).brake().accelerate().brake();
