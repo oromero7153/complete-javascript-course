@@ -8,6 +8,7 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
+  clicks = 0;
   constructor(coords, distance, duration) {
     this.coords = coords; // in [lat, lng]
     this.distance = distance; // in km
@@ -20,6 +21,9 @@ class Workout {
     this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
     } ${this.date.getDate()}`;
+  }
+  click() {
+    this.clicks++;
   }
 }
 
@@ -67,15 +71,23 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
 class App {
   #map;
+  #mapZoomLevel = 13;
   #mapEvent;
   #workouts = [];
 
   constructor() {
+    //Get User's Position
     this._getPosition();
 
+    // get data from local storage.
+    this._getLocalStorage();
+
+    //Attached Event Handlers
     form.addEventListener('submit', this._newWorkout.bind(this));
     //video#245
     inputType.addEventListener('change', this._toggleElevatioField);
+    //Move marker to click video # 251
+    containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
   }
   _getPosition() {
     //geolocation video # 242
@@ -94,7 +106,7 @@ class App {
       const coords = [latitude, longitude];
 
       // using leaflet video # 243
-      this.#map = L.map('map').setView(coords, 13);
+      this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
 
       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
         attribution:
@@ -103,6 +115,10 @@ class App {
 
       //adding the forms when a user clicks video # 245
       this.#map.on('click', this._showForm.bind(this));
+
+      this.#workouts.forEach(work => {
+        this._renderWorkoutMarker(work);
+      });
     }
   }
 
@@ -182,6 +198,9 @@ class App {
 
     //clear input fields
     this._hideForm();
+
+    //set all local storage to all workouts video 252
+    this._setLocalStorage();
   }
   _renderWorkoutMarker(workout) {
     //generating markers from a click video # 244
@@ -251,6 +270,40 @@ class App {
       `;
 
     form.insertAdjacentHTML('afterend', html);
+  }
+  _moveToPopup(e) {
+    const workoutEl = e.target.closest('.workout');
+
+    if (!workoutEl) return;
+
+    const workout = this.#workouts.find(
+      work => work.id === workoutEl.dataset.id
+    );
+
+    this.#map.setView(workout.coords, this.#mapZoomLevel, {
+      animate: true,
+      pan: { duration: 1 },
+    });
+    //Using the public interface
+    //workout.click();
+  }
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  }
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+
+    if (!data) return;
+
+    this.#workouts = data;
+
+    this.#workouts.forEach(work => {
+      this._renderWorkout(work);
+    });
+  }
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
   }
 }
 
