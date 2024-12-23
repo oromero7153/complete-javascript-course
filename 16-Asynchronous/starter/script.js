@@ -47,5 +47,5 @@ const getCountryData = function (country) {
 };
 
 getCountryData('canada');
-getCountryData('deutschland');
+getCountryData('poland');
 getCountryData('brazil');
