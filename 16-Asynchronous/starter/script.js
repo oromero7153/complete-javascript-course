@@ -289,5 +289,5 @@ const whereAmI = function (lat, lng) {
 };
 
 whereAmI(52.508, 13.381);
-whereAmI(33.882, -118.312);
+whereAmI(43.660684, -79.374767);
 whereAmI(-33.933, 18.474);
