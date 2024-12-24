@@ -74,7 +74,6 @@ getCountryData('germany');
 
 ///////////////////////////////////////
 // Welcome to Callback Hell
-
 /*
 const getCountryAndNeighbour = function (country) {
   // AJAX call country 1
@@ -110,7 +109,7 @@ const getCountryAndNeighbour = function (country) {
 
 // getCountryAndNeighbour('portugal');
 getCountryAndNeighbour('usa');
-
+/*
 setTimeout(() => {
   console.log('1 second passed');
   setTimeout(() => {
