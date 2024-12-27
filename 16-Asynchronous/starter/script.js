@@ -153,7 +153,7 @@ getCountryAndNeighbor('usa');
 //   'https://countries-api-836d.onrender.com/countries/name/portugal'
 // );
 // console.log(request);
-/*
+
 const getJSON = function (url, errorMsg = 'Something went wrong!') {
   return fetch(url).then(response => {
     if (!response.ok) throw new Error(`${errorMsg} (${response.status})`); // throw keyword immediately terminates the function like return. Runs if there is an error
@@ -161,7 +161,7 @@ const getJSON = function (url, errorMsg = 'Something went wrong!') {
     return response.json();
   });
 };
-*/
+
 ///////////////////////////////////////
 //video 262. Consuming Promises
 
@@ -266,7 +266,7 @@ TEST COORDINATES 2: -33.933, 18.474
 
 GOOD LUCK 😀
 */
-
+/*
 const whereAmI = function (lat, lng) {
   fetch(
     `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`
@@ -291,3 +291,261 @@ const whereAmI = function (lat, lng) {
 whereAmI(52.508, 13.381);
 whereAmI(43.660684, -79.374767);
 whereAmI(-33.933, 18.474);
+
+//////////////////////////////////////////
+// video 268, the event loop in practice
+
+console.log('Test Start'); //synchronous code
+setTimeout(() => console.log('O sec timer'), 0); //this goes into call back queue, which executes after the microtask queue.
+Promise.resolve('Resolved Promise 1').then(res => console.log(res)); //this will execute first because it is in the microtasks queue, which goes before the call back queue
+
+Promise.resolve('Resolved Promise 2').then(res => {
+  for (let i = 0; i < 100000000; i++) {}
+  console.log(res);
+});
+console.log('Test End'); //synchronous code
+
+
+//////////////////////////////////////////
+// video 269, building a simple promise
+
+const lotteryPromise = new Promise(function (resolve, reject) {
+  console.log('lottery draw is happening!');
+  setTimeout(function () {
+    if (Math.random() >= 0.5) {
+      resolve('You WIN!!🫡');
+    } else {
+      reject(new Error('You Lose! 🫵'));
+    }
+  }, 2000);
+});
+
+//consuming the promise
+lotteryPromise.then(res => console.log(res)).catch(err => console.log(err));
+
+//promisifying setTimeout
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+wait(2)
+  .then(() => {
+    console.log('I waited for 2 secs');
+    return wait(1);
+  })
+  .then(() => console.log('I waited for 1 sec'));
+
+Promise.resolve('abc').then(x => console.log(x));
+Promise.reject(new Error('Problem')).catch(x => console.error(x));
+
+
+//////////////////////////////////////////
+// video 270. Promisifying the Geolocation API
+
+console.log('getting position');
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    // navigator.geolocation.getCurrentPosition(
+    //   position => resolve(position),
+    //   err => reject(err)
+    // );
+
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+//getPosition().then(pos => console.log(pos));
+
+const whereAmI = function () {
+  getPosition()
+    .then(pos => {
+      const { latitude: lat, longitude: lng } = pos.coords;
+
+      return fetch(
+        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`
+      );
+    })
+    .then(response => {
+      if (!response.ok)
+        throw new Error(`Problem with Geocoding ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      console.log(`You are in ${data.city}, ${data.countryName}.`);
+      return fetch(
+        `https://countries-api-836d.onrender.com/countries/name/${data.countryName}`
+      );
+    })
+    .then(response => response.json())
+    .then(data => renderCountry(data[0]))
+    .catch(err => console.log(`${err.message}☠️`));
+};
+
+btn.addEventListener('click', whereAmI);
+*/
+
+///////////////////////////////////////
+// Coding Challenge #2
+
+/* 
+Build the image loading functionality that I just showed you on the screen.
+
+Tasks are not super-descriptive this time, so that you can figure out some stuff on your own. Pretend you're working on your own 😉
+
+PART 1
+1. Create a function 'createImage' which receives imgPath as an input. This function returns a promise which creates a new image (use document.createElement('img')) and sets the .src attribute to the provided image path. When the image is done loading, append it to the DOM element with the 'images' class, and resolve the promise. The fulfilled value should be the image element itself. In case there is an error loading the image ('error' event), reject the promise.
+
+If this part is too tricky for you, just watch the first part of the solution.
+
+PART 2
+2. Comsume the promise using .then and also add an error handler;
+3. After the image has loaded, pause execution for 2 seconds using the wait function we created earlier;
+4. After the 2 seconds have passed, hide the current image (set display to 'none'), and load a second image (HINT: Use the image element returned by the createImage promise to hide the current image. You will need a global variable for that 😉);
+5. After the second image has loaded, pause execution for 2 seconds again;
+6. After the 2 seconds have passed, hide the current image.
+
+TEST DATA: Images in the img folder. Test the error handler by passing a wrong image path. Set the network speed to 'Fast 3G' in the dev tools Network tab, otherwise images load too fast.
+
+GOOD LUCK 😀
+
+
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+const imgContainer = document.querySelector('.images');
+
+const createImage = function (imgPath) {
+  return new Promise(function (resolve, reject) {
+    const img = document.createElement('img');
+    img.src = imgPath;
+    img.addEventListener('load', function () {
+      imgContainer.append(img);
+      resolve(img);
+    });
+    img.addEventListener('error', function () {
+      reject(new Error('Image not found'));
+    });
+  });
+};
+
+let currentImg;
+
+createImage('img/img-1.jpg')
+  .then(img => {
+    currentImg = img;
+    console.log('image 1 loaded');
+    return wait(2);
+  })
+  .then(() => {
+    currentImg.style.display = 'none';
+    return createImage('img/img-2.jpg');
+  })
+  .then(img => {
+    currentImg = img;
+    console.log('image 2loaded');
+    return wait(2);
+  })
+  .then(() => (currentImg.style.display = 'none'))
+  .catch(err => console.log(err));
+
+///////////////////////////////////////
+// video 272. Consuming Promises with Async/Await
+
+// fetch(
+//   `https://countries-api-836d.onrender.com/countries/name/${country}`
+// ).then(res => console.log(res)); fetch and .then are the same as async/await
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const whereAmI = async function () {
+  // video 273 Error Handling With try...catch
+  try {
+    //getting geolocation
+    const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
+
+    //reverse geocoding
+    const resGeo = await fetch(
+      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`
+    );
+    if (!resGeo.ok) throw new Error('Problem getting location data');
+    let dataGeo = await resGeo.json();
+
+    dataGeo.countryName = 'usa';
+
+    //country data
+    const res = await fetch(
+      `https://countries-api-836d.onrender.com/countries/name/${dataGeo.countryName}`
+    );
+
+    if (!resGeo.ok) throw new Error('Problem getting counrty');
+
+    const data = await res.json();
+    renderCountry(data[0]);
+
+    return `You are in ${dataGeo.city}, ${dataGeo.country}`;
+  } catch (err) {
+    console.error(`💥${err}`);
+    renderError(`💥 ${err.message}`);
+
+    //reject promise async function
+    throw err;
+  }
+};
+
+console.log('1: will get location');
+// const city = whereAmI();
+// console.log(city);
+// whereAmI()
+//   .then(city => console.log(`2: ${city}`))
+//   .catch(err => console.error(`2:${err.message}`))
+//   .finally(() => console.log('3: finished getting location'));
+
+(async function () {
+  try {
+    const city = await whereAmI();
+    console.log(`2: ${city}`);
+  } catch (err) {
+    console.error(`2:${err.message}`);
+  }
+  console.log('3: finished getting location');
+})();
+*/
+///////////////////////////////////////
+//video 275. Running Promises in Parallel... use Promise.all()
+
+const get3countries = async function (c1, c2, c3) {
+  try {
+    // const [data1] = await getJSON(
+    //   `https://countries-api-836d.onrender.com/countries/name/${c1}`
+    // );
+    // const [data2] = await getJSON(
+    //   `https://countries-api-836d.onrender.com/countries/name/${c2}`
+    // );
+    // const [data3] = await getJSON(
+    //   `https://countries-api-836d.onrender.com/countries/name/${c3}`
+    // );
+    // console.log([data1.capital, data2.capital, data3.capital]);
+    const data = await Promise.all([
+      getJSON(`https://countries-api-836d.onrender.com/countries/name/${c1}`),
+      getJSON(`https://countries-api-836d.onrender.com/countries/name/${c2}`),
+      getJSON(`https://countries-api-836d.onrender.com/countries/name/${c3}`),
+    ]);
+
+    console.log(data.map(d => d[0].capital));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+get3countries('portugal', 'canada', 'tanzania');
